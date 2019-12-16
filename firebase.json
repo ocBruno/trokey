@@ -1,0 +1,20 @@
+{
+  "hosting": {
+    "public": "public",
+    "rewrites": [
+      {
+        "source": "**",
+        "function": "nuxtvuetify"
+      }
+    ]
+  },
+  "functions": {
+    "source": "src",
+    "predeploy": "yarn build && yarn pre:deploy",
+    "ignore":[
+      "static",
+      "node_modules",
+      "**/**/dist/client"
+    ]
+  }
+}

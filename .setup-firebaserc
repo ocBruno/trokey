@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "trokey-7e335",
+    "develop": "trokey-7e335",
+    "staging": "trokey-7e335",
+    "production": "trokey-7e335"
+  }
+}

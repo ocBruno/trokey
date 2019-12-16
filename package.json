@@ -1,43 +1,32 @@
 {
-  "name": "trokey-ssr",
-  "version": "1.0.0",
-  "description": "Server side rendered site for trading private property.",
-  "author": "ocbruno",
-  "private": true,
+  "name": "nuxt2-firebase-ssr",
+  "version": "2.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
-    "test": "jest",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
-    "precommit": "npm run lint",
-    "deploy:now": "now --public && now alias"
+    "setup:client": "cd \"src\" && npm i",
+    "setup:firebase": "xcopy /y \".setup-firebaserc\" \".firebaserc\"",
+    "setup": "npm i && npm run setup:firebase && npm run setup:client",
+    "dev": "cd ./src && npm run dev",
+    "build": "cd ./src && npm run build",
+    "copyassets": "(robocopy /e ./src/.nuxt/dist/client ./public/assets) ^& IF %ERRORLEVEL% LEQ 1 exit 0",
+    "copystatic": "(robocopy /e ./src/static ./public) ^& IF %ERRORLEVEL% LEQ 1 exit 0",
+    "pre:deploy": "npm run copyassets && npm run copystatic",
+    "firebase:serve": "npm run build && npm run serve",
+    "serve": "cross-env DEBUG=nuxt:*  firebase serve --only hosting,functions",
+    "deploy": "firebase deploy"
   },
-  "dependencies": {
-    "@nuxtjs/auth": "^4.8.4",
-    "@nuxtjs/axios": "^5.8.0",
-    "@nuxtjs/pwa": "^3.0.0-0",
-    "babel-eslint": "^10.0.3",
-    "body-parser": "^1.19.0",
-    "cookieparser": "^0.1.0",
-    "eslint": "^6.6.0",
-    "eslint-config-prettier": "^6.5.0",
-    "eslint-loader": "^3.0.2",
-    "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-vue": "^5.2.3",
-    "firebase": "^7.2.3",
-    "js-cookie": "^2.2.1",
-    "jwt-decode": "^2.2.0",
-    "nuxt": "^2.0.0",
-    "prettier": "^1.18.2"
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test",
+      "...": "..."
+    }
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.0.0",
-    "@vue/test-utils": "^1.0.0-beta.27",
-    "babel-jest": "^24.1.0",
-    "jest": "^24.1.0",
-    "vue-jest": "^4.0.0-0"
+    "cross-env": "^5.2.1"
   }
 }
