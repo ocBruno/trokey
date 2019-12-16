@@ -18,15 +18,15 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm test",
-      "pre-push": "npm test",
-      "...": "..."
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
     }
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "commitizen": "^4.0.3",
     "cross-env": "^5.2.1"
   }
 }
